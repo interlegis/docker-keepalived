@@ -4,11 +4,14 @@ if [ -z "$AUTH_PASS" ]; then
   AUTH_PASS="changeme"
 fi
 
+if [ -z "$CHECK_SCRIPT"]; then
+  CHECK_SCRIPT="ss -ltn 'src ${CHECK_IP}' | grep ${CHECK_PORT}"
+fi
+
 # Substitute variables in config file.
 /bin/sed -i "s/{{VIRTUAL_IP}}/${VIRTUAL_IP}/g" /etc/keepalived/keepalived.conf
 /bin/sed -i "s/{{VIRTUAL_MASK}}/${VIRTUAL_MASK}/g" /etc/keepalived/keepalived.conf
-/bin/sed -i "s/{{CHECK_IP}}/${CHECK_IP}/g" /etc/keepalived/keepalived.conf
-/bin/sed -i "s/{{CHECK_PORT}}/${CHECK_PORT}/g" /etc/keepalived/keepalived.conf
+/bin/sed -i "s/{{CHECK_SCRIPT}}/${CHECK_SCRIPT}/g" /etc/keepalived/keepalived.conf
 /bin/sed -i "s/{{VRID}}/${VRID}/g" /etc/keepalived/keepalived.conf
 /bin/sed -i "s/{{INTERFACE}}/${INTERFACE}/g" /etc/keepalived/keepalived.conf
 /bin/sed -i "s/{{AUTH_PASS}}/${AUTH_PASS}/" /etc/keepalived/keepalived.conf
