@@ -4,8 +4,17 @@ if [ -z "$AUTH_PASS" ]; then
   AUTH_PASS="changeme"
 fi
 
-if [ -z "$CHECK_SCRIPT"]; then
+if [ -z "$CHECK_SCRIPT" ]; then
   CHECK_SCRIPT="ss -ltn 'src ${CHECK_IP}' | grep ${CHECK_PORT}"
+fi
+
+if [ -z "$AUTH_TYPE" ]; then
+  AUTH_TYPE="AH"
+else
+  if [ "$AUTH_TYPE" != "AH" && "$AUTH_TYPE" != "PASS" ]; then
+    echo "ERROR: AUTH_TYPE must be either AH or PASS. Exiting."
+    exit 1
+  fi
 fi
 
 # Substitute variables in config file.
@@ -15,6 +24,7 @@ fi
 /bin/sed -i "s/{{VRID}}/${VRID}/g" /etc/keepalived/keepalived.conf
 /bin/sed -i "s/{{INTERFACE}}/${INTERFACE}/g" /etc/keepalived/keepalived.conf
 /bin/sed -i "s/{{AUTH_PASS}}/${AUTH_PASS}/" /etc/keepalived/keepalived.conf
+/bin/sed -i "s/{{AUTH_TYPE}}/${AUTH_TYPE}/" /etc/keepalived/keepalived.conf
 
 # Make sure we react to these signals by running stop() when we see them - for clean shutdown
 # And then exiting
