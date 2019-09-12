@@ -20,7 +20,7 @@ fi
 # Substitute variables in config file.
 /bin/sed -i "s/{{VIRTUAL_IP}}/${VIRTUAL_IP}/g" /etc/keepalived/keepalived.conf
 /bin/sed -i "s/{{VIRTUAL_MASK}}/${VIRTUAL_MASK}/g" /etc/keepalived/keepalived.conf
-/bin/sed -i "s/{{CHECK_SCRIPT}}/${CHECK_SCRIPT}/g" /etc/keepalived/keepalived.conf
+/bin/sed -i "s/{{CHECK_SCRIPT}}/${CHECK_SCRIPT}/g" /usr/bin/check.sh
 /bin/sed -i "s/{{VRID}}/${VRID}/g" /etc/keepalived/keepalived.conf
 /bin/sed -i "s/{{INTERFACE}}/${INTERFACE}/g" /etc/keepalived/keepalived.conf
 /bin/sed -i "s/{{AUTH_PASS}}/${AUTH_PASS}/" /etc/keepalived/keepalived.conf
