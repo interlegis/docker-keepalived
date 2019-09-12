@@ -1,4 +1,4 @@
-FROM alpine:3.6
+FROM alpine:3.10
 
 RUN apk --update -t add --no-cache keepalived iproute2 grep bash tcpdump sed && \
     rm -f /var/cache/apk/* /tmp/*
